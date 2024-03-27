@@ -5,5 +5,6 @@ import com.test.springbootmall.model.Product;
 import java.util.List;
 
 public interface ProductDao {
-    List<Product> findAll();
+    List<Product> findProducts();
+    List<Product> findAllProducts();
 }

@@ -3,9 +3,9 @@ package com.test.springbootmall.util;
 import java.util.List;
 
 public class ProductPage<T> {
-    private Integer limit;
-    private Integer offset;
-    private Integer tatol;
+    private Integer limit;//一頁顯示多少筆
+    private Integer offset;//顯示的從第幾筆開始算
+    private Integer tatol;//總數幾筆
     private List<T> results;
 
     public Integer getLimit() {
