@@ -6,7 +6,16 @@ public class ProductPage<T> {
     private Integer limit;//一頁顯示多少筆
     private Integer offset;//顯示的從第幾筆開始算
     private Integer tatol;//總數幾筆
+    private String sort;//排序依據
     private List<T> results;
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
 
     public Integer getLimit() {
         return limit;

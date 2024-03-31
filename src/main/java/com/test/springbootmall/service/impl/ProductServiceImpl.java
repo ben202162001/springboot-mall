@@ -1,6 +1,7 @@
 package com.test.springbootmall.service.impl;
 
 import com.test.springbootmall.dao.ProductDao;
+import com.test.springbootmall.dto.ProductDto;
 import com.test.springbootmall.model.Product;
 import com.test.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ public class ProductServiceImpl implements ProductService {
         this.productDao = productDao;
     }
     @Override
-    public List<Product> getProducts() {
-        return productDao.findProducts();
+    public List<Product> getProducts(ProductDto ProductDto) {
+        return productDao.findProducts(ProductDto);
     }
 
     @Override
     public List<Product> getAllProducts() {
         return productDao.findAllProducts();
     }
+    @Override
+    public int countProducts(ProductDto productDto) {
+        return productDao.countProducts(productDto);
+    };
 }
