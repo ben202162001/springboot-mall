@@ -22,6 +22,14 @@ public class ProductController {
         this.productService = productService;
     }
 
+
+    @GetMapping("/")
+    public String Home() {
+        String list = "http://localhost:8080/AllProducts"+ "<br>" +
+                "http://localhost:8080/Products";
+
+        return list;
+    }
     @GetMapping("/AllProducts")
     public ProductPage<Product> AllProducts() {
         List<Product> ProductList= productService.getAllProducts();
