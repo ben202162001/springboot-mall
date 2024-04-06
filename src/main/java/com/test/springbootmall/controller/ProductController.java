@@ -23,13 +23,6 @@ public class ProductController {
     }
 
 
-    @GetMapping("/")
-    public String Home() {
-        String list = "http://localhost:8080/AllProducts"+ "<br>" +
-                "http://localhost:8080/Products";
-
-        return list;
-    }
     @GetMapping("/AllProducts")
     public ProductPage<Product> AllProducts() {
         List<Product> ProductList= productService.getAllProducts();
@@ -41,20 +34,20 @@ public class ProductController {
     }
     @GetMapping("/Products")
     public ProductPage<Product> Products(ProductDto ProductDto) {
-
+        //確認有幾筆
         ProductPage<Product> ProductPage = new ProductPage<>();
         ProductPage.setTatol(productService.countProducts(ProductDto));
         if (ProductPage.getTatol() == 0 ){
             System.out.println("取得筆數為0，不應該繼續跑");
         }
-
+        //實際跑
         List<Product> ProductList= productService.getProducts(ProductDto);
         ProductPage.setResults(ProductList);
         ProductPage.setLimit(ProductDto.getLimit());
         ProductPage.setOffset(ProductDto.getOffset());
         ProductPage.setSort(ProductDto.getSort());
 
-
+        //留log
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         System.out.println("-------------------------------------");
         System.out.println("Products呼叫完成:"+dtf.format(LocalDateTime.now()));
