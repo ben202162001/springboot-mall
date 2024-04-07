@@ -4,8 +4,10 @@ import com.test.springbootmall.dao.UserDao;
 import com.test.springbootmall.dto.UserDto;
 import com.test.springbootmall.model.User;
 import com.test.springbootmall.service.UserService;
+import com.test.springbootmall.util.ErrorMassage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalTime;
 
 
 @Service
@@ -16,21 +18,39 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserDao UserDao) {
         this.UserDao = UserDao;
     }
-
+    @Autowired
+    ErrorMassage ErrorMassage;
 
     @Override
-    public User DoLogin(UserDto UserDto) {
-        Boolean isExsitAccount =UserDao.CheckPhoneNumber(UserDto);
-
-        if (isExsitAccount.equals(true)){
-            System.out.println(UserDto.getPhone_Number()+" "+UserDto.getPassword()+" 帳號存在");
-            return UserDao.DoLogin(UserDto);
-        }else {
-            System.out.println(UserDto.getPhone_Number()+" "+UserDto.getPassword()+" 帳號不存在");
-            return UserDao.DoLogin(UserDto);
-
+    public ErrorMassage DoLogin(UserDto UserDto) {
+        LocalTime dtf = LocalTime.now();
+        //判斷帳號是否有輸入
+        if (UserDto == null || UserDto.getPhone_Number().equals("")||UserDto.getPassword().equals("")) {
+            ErrorMassage.setMassageStatus("500");
+            ErrorMassage.setMassage("帳號請輸入完整");
+            ErrorMassage.setErrorTime(dtf);
+            return ErrorMassage;
         }
-
+        //判斷帳號是否存在
+        Boolean isExsitAccount =UserDao.CheckPhoneNumber(UserDto);
+        if (isExsitAccount.equals(false)){
+            ErrorMassage.setMassageStatus("500");
+            ErrorMassage.setMassage("帳號不存在");
+            ErrorMassage.setErrorTime(dtf);
+            return ErrorMassage;
+        }
+        //判斷帳號密碼是否正確
+        User user=UserDao.DoLogin(UserDto);
+        if (user == null){
+            ErrorMassage.setMassageStatus("500");
+            ErrorMassage.setMassage("密碼不正確");
+            ErrorMassage.setErrorTime(dtf);
+            return ErrorMassage;
+        }
+        ErrorMassage.setMassageStatus("200");
+        ErrorMassage.setMassage("");
+        ErrorMassage.setErrorTime(dtf);
+        return ErrorMassage;
     }
 
 }
