@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
         LocalTime dtf = LocalTime.now();
         //判斷帳號是否有輸入
         if (UserDto == null || UserDto.getPhone_Number().equals("")||UserDto.getPassword().equals("")) {
-            ErrorMassage.setMassageStatus("500");
+            ErrorMassage.setMassageStatus("fail");
             ErrorMassage.setMassage("帳號請輸入完整");
             ErrorMassage.setErrorTime(dtf);
             return ErrorMassage;
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         //判斷帳號是否存在
         Boolean isExsitAccount =UserDao.CheckPhoneNumber(UserDto);
         if (isExsitAccount.equals(false)){
-            ErrorMassage.setMassageStatus("500");
+            ErrorMassage.setMassageStatus("fail");
             ErrorMassage.setMassage("帳號不存在");
             ErrorMassage.setErrorTime(dtf);
             return ErrorMassage;
@@ -42,12 +42,12 @@ public class UserServiceImpl implements UserService {
         //判斷帳號密碼是否正確
         User user=UserDao.DoLogin(UserDto);
         if (user == null){
-            ErrorMassage.setMassageStatus("500");
+            ErrorMassage.setMassageStatus("fail");
             ErrorMassage.setMassage("密碼不正確");
             ErrorMassage.setErrorTime(dtf);
             return ErrorMassage;
         }
-        ErrorMassage.setMassageStatus("200");
+        ErrorMassage.setMassageStatus("success");
         ErrorMassage.setMassage("");
         ErrorMassage.setErrorTime(dtf);
         return ErrorMassage;
