@@ -22,4 +22,9 @@ public class UserController {
         ErrorMassage ErrorMassage = userService.DoLogin(UserDto);
         return ErrorMassage;
     }
+    @GetMapping("/getUserData")
+    public User getUserData(UserDto UserDto) {
+        User User = userService.getUserData(UserDto);
+        return User;
+    }
 }

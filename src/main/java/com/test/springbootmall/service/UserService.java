@@ -6,4 +6,5 @@ import com.test.springbootmall.util.ErrorMassage;
 
 public interface UserService {
      ErrorMassage DoLogin(UserDto UserDto);
+     User getUserData(UserDto UserDto);
 }

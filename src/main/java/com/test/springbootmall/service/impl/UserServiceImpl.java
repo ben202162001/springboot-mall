@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
             return ErrorMassage;
         }
         //判斷帳號密碼是否正確
-        User user=UserDao.DoLogin(UserDto);
+        User user=UserDao.DoLoginCheck(UserDto);
         if (user == null){
             ErrorMassage.setMassageStatus("fail");
             ErrorMassage.setMassage("密碼不正確");
@@ -51,6 +51,10 @@ public class UserServiceImpl implements UserService {
         ErrorMassage.setMassage("");
         ErrorMassage.setErrorTime(dtf);
         return ErrorMassage;
+    }
+    @Override
+    public User getUserData(UserDto UserDto){
+        return UserDao.getUserData(UserDto);
     }
 
 }

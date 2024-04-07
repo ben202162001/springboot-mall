@@ -5,6 +5,8 @@ import com.test.springbootmall.model.User;
 
 
 public interface UserDao {
-    User DoLogin(UserDto UserDto);
+    User DoLoginCheck(UserDto UserDto);
     Boolean CheckPhoneNumber(UserDto UserDto);
+
+    User getUserData(UserDto UserDto);
 }

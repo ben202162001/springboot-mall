@@ -12,8 +12,8 @@ public class TestHomeController {
     public String Home() {
         String list = "http://localhost:8080/AllProducts"+ "<br>" +
                 "http://localhost:8080/Products"+ "<br>" +
-                "http://localhost:8080/login?phone_Number=0912345678&password=password";
-
+                "http://localhost:8080/login?phone_Number=0912345678&password=password"+ "<br>" +
+                "http://localhost:8080/getUserData?phone_Number=0912345678&password=password";
         return list;
     }
 }

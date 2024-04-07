@@ -15,7 +15,7 @@ public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public User DoLogin(UserDto UserDto) {
+    public User DoLoginCheck(UserDto UserDto) {
         String sql = "SELECT * FROM account_user WHERE 1=1";
 
         // Adding conditions based on DTO fields
@@ -53,6 +53,28 @@ public class UserDaoImpl implements UserDao {
         } catch (EmptyResultDataAccessException e) {
             // Handle the case where no user is found
             return false;
+        }
+    }
+
+    @Override
+    public User getUserData(UserDto UserDto) {
+        String sql = "SELECT * FROM account_user WHERE 1=1";
+
+        // Adding conditions based on DTO fields
+        if (UserDto.getPhone_Number() != null && !UserDto.getPhone_Number().isEmpty()) {
+            sql += " AND phone_Number = '" + UserDto.getPhone_Number() + "'";
+        }
+
+        if (UserDto.getPassword() != null && !UserDto.getPassword().isEmpty()) {
+            sql += " AND password = '" + UserDto.getPassword() + "'";
+        }
+
+        try {
+            // Execute the query and return the result
+            return jdbcTemplate.queryForObject(sql, new UserRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            // Handle the case where no user is found
+            return null;
         }
     }
 }
