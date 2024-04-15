@@ -2,10 +2,9 @@ package com.test.springbootmall.controller;
 
 import com.test.springbootmall.dto.UserDto;
 import com.test.springbootmall.model.User;
-import com.test.springbootmall.service.impl.UserServiceImpl;
+import com.test.springbootmall.service.UserService;
 import com.test.springbootmall.util.ErrorMassage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class UserController {
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @GetMapping("/login")
     public ErrorMassage login(UserDto UserDto) {
