@@ -1,7 +1,9 @@
 package com.test.springbootmall.util;
 
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public class ProductPage<T> {
     private Integer limit;//一頁顯示多少筆
     private Integer offset;//顯示的從第幾筆開始算

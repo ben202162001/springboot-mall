@@ -19,9 +19,9 @@ public class PurchaseController {
     }
     @PostMapping("/Purchase")
     public ErrorMassage Purchase(@RequestBody Purchase Purchase) {
-        System.out.println(Purchase);
-        ErrorMassage ErrorMassage = PurchaseService.Purchase(Purchase);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        System.out.println("Purchase呼叫開始:"+dtf.format(LocalDateTime.now()));
+        ErrorMassage ErrorMassage = PurchaseService.Purchase(Purchase);
         System.out.println("Purchase呼叫完成:"+dtf.format(LocalDateTime.now()));
         return ErrorMassage;
 //案例

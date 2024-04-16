@@ -13,16 +13,15 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     @Override
     public void Purchase(Purchase purchase) {
-        String sql = "INSERT INTO product_order (user_name, product_id, quantity, total_price, buy_date, remark) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO product_order (phone_number, product_id, quantity, total_price, buy_date, remark) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try {
-            jdbcTemplate.update(sql, purchase.getuser_name(), purchase.getproduct_id(), purchase.getQuantity(),
+        jdbcTemplate.update(sql, purchase.getphone_number(), purchase.getproduct_id(), purchase.getQuantity(),
                     purchase.gettotal_price(), purchase.getbuy_date(), purchase.getRemark());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
-
-
-
+    @Override
+    public void PurchaseUpdateStock(Purchase purchase) {
+        String sql = "UPDATE product SET stock = stock - ? WHERE product_id = ?";
+        int rowsUpdated = jdbcTemplate.update(sql, purchase.getQuantity(), purchase.getproduct_id());
+    }
 }

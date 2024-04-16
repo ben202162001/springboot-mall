@@ -9,4 +9,5 @@ public interface ProductDao {
     List<Product> findProducts(ProductDto ProductDto);
     List<Product> findAllProducts();
     int countProducts(ProductDto productDto);
+    Product GetProductById(int product_id);
 }

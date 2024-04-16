@@ -1,17 +1,19 @@
 package com.test.springbootmall.model;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class Purchase {
-    private String user_name;
+    String phone_number;
     private int product_id;
     private int quantity;
     private int total_price;
     private Date buy_date;
     private String remark;
 
-    public Purchase (String user_name, int product_id, int quantity, int total_price, Date buy_date, String remark) {
-        this.user_name = user_name;
+    public Purchase (String phone_number, int product_id, int quantity, int total_price, Date buy_date, String remark) {
+        this.phone_number = phone_number;
         this.product_id = product_id;
         this.quantity = quantity;
         this.total_price = total_price;
@@ -20,12 +22,12 @@ public class Purchase {
     }
 
     // Getters and Setters
-    public String getuser_name() {
-        return user_name;
+    public String getphone_number() {
+        return phone_number;
     }
 
-    public void setuser_name(String user_name) {
-        this.user_name = user_name;
+    public void setphone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public int getproduct_id() {
@@ -71,7 +73,7 @@ public class Purchase {
     @Override
     public String toString() {
         return "Purchase{" +
-                "user_name='" + user_name + '\'' +
+                "phone_number='" + phone_number + '\'' +
                 ", product_id=" + product_id +
                 ", quantity=" + quantity +
                 ", total_price=" + total_price +
