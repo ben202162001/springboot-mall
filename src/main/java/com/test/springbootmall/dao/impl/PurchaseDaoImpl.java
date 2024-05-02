@@ -17,11 +17,9 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
         jdbcTemplate.update(sql, purchase.getphone_number(), purchase.getproduct_id(), purchase.getQuantity(),
                     purchase.gettotal_price(), purchase.getbuy_date(), purchase.getRemark());
+        sql = "UPDATE product SET stock = stock - ? WHERE product_id = ?";
+        int rowsUpdated = jdbcTemplate.update(sql, purchase.getQuantity(), purchase.getproduct_id());
 
     }
-    @Override
-    public void PurchaseUpdateStock(Purchase purchase) {
-        String sql = "UPDATE product SET stock = stock - ? WHERE product_id = ?";
-        int rowsUpdated = jdbcTemplate.update(sql, purchase.getQuantity(), purchase.getproduct_id());
-    }
+
 }

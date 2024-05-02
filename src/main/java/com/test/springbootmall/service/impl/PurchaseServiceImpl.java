@@ -8,6 +8,7 @@ import com.test.springbootmall.util.ErrorMassage;
 import com.test.springbootmall.dao.PurchaseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
 
@@ -23,6 +24,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     ErrorMassage ErrorMassage;
     @Override
+    @Transactional
     public ErrorMassage Purchase(Purchase purchase) {
         LocalTime dtf = LocalTime.now();
         //確認user
@@ -52,10 +54,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         System.out.println("此次變更資料:"+purchase);
         System.out.println("商品原本:"+Product);
         //寫入訂單
+        //刪除商品庫存
         PurchaseDao.Purchase(purchase);
 
-        //刪除商品庫存
-        PurchaseDao.PurchaseUpdateStock(purchase);
 
         ErrorMassage.setMassageStatus("success");
         ErrorMassage.setMassage("");
