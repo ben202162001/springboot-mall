@@ -1,7 +1,9 @@
 package com.test.springbootmall.controller;
 
+import com.test.springbootmall.dto.ProductDetailDto;
 import com.test.springbootmall.dto.ProductDto;
 import com.test.springbootmall.model.Product;
+import com.test.springbootmall.model.ProductDetail;
 import com.test.springbootmall.service.ProductService;
 import com.test.springbootmall.util.ProductPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,11 @@ public class ProductController {
         System.out.println("傳出Sort:"+ProductPage.getSort());
         System.out.println("-------------------------------------");
         return ProductPage;
+    }
+    @GetMapping("/ProductDetail")
+    public ProductDetail AllProducts(ProductDetailDto ProductDetailDto) {
+        ProductDetail ProductDetail = productService.getProductDetail(ProductDetailDto);
+        return ProductDetail;
     }
 
 }

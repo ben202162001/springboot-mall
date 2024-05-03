@@ -1,8 +1,10 @@
 package com.test.springbootmall.service.impl;
 
 import com.test.springbootmall.dao.ProductDao;
+import com.test.springbootmall.dto.ProductDetailDto;
 import com.test.springbootmall.dto.ProductDto;
 import com.test.springbootmall.model.Product;
+import com.test.springbootmall.model.ProductDetail;
 import com.test.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +31,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int countProducts(ProductDto productDto) {
         return productDao.countProducts(productDto);
-    };
+    }
+
+    @Override
+    public ProductDetail getProductDetail(ProductDetailDto ProductDetailDto) {
+        return productDao.getProductDetail(ProductDetailDto);
+    }
+
+    ;
 }

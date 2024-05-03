@@ -1,8 +1,11 @@
 package com.test.springbootmall.dao.impl;
 
 import com.test.springbootmall.dao.ProductDao;
+import com.test.springbootmall.dto.ProductDetailDto;
 import com.test.springbootmall.dto.ProductDto;
 import com.test.springbootmall.model.Product;
+import com.test.springbootmall.model.ProductDetail;
+import com.test.springbootmall.rowmapper.ProductDetailRowMapper;
 import com.test.springbootmall.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -82,6 +85,21 @@ public class ProductDaoImpl implements ProductDao {
             // Handle the case where no user is found
             Product Product = null;
             return Product;
+        }
+
+    }
+
+    @Override
+    public ProductDetail getProductDetail(ProductDetailDto ProductDetailDto) {
+        String sql = "SELECT * FROM product_detail WHERE 1=1";
+        sql += " AND product_id = '" + ProductDetailDto.getProductId() + "'";
+
+        try {
+            return jdbcTemplate.queryForObject(sql, new ProductDetailRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            // Handle the case where no user is found
+            ProductDetail ProductDetail = null;
+            return ProductDetail;
         }
 
     }
