@@ -104,4 +104,19 @@ public class ProductDaoImpl implements ProductDao {
 
     }
 
+    @Override
+    public Product getProduct(ProductDetailDto ProductDetailDto) {
+        String sql = "SELECT * FROM product WHERE 1=1";
+        sql += " AND product_id = '" + ProductDetailDto.getProductId() + "'";
+
+        try {
+            return jdbcTemplate.queryForObject(sql, new ProductRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            // Handle the case where no user is found
+            Product Product = null;
+            return Product;
+        }
+
+    }
+
 }

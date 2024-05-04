@@ -13,4 +13,5 @@ public interface ProductDao {
     int countProducts(ProductDto productDto);
     Product GetProductById(int product_id);
     ProductDetail getProductDetail(ProductDetailDto ProductDetailDto);
+    Product getProduct(ProductDetailDto ProductDetailDto);
 }

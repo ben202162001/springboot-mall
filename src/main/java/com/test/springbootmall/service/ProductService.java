@@ -12,4 +12,5 @@ public interface ProductService {
     List<Product> getAllProducts();
     int countProducts(ProductDto productDto);
     ProductDetail getProductDetail(ProductDetailDto ProductDetailDto);
+    Product getProduct(ProductDetailDto ProductDetailDto);
 }

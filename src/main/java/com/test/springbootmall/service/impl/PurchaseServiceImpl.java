@@ -47,7 +47,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         //確認商品庫存
         if (purchase.getQuantity()>Product.getStock()){
             ErrorMassage.setMassageStatus("fail");
-            ErrorMassage.setMassage(purchase.getproduct_id()+"，此編號商品庫存不足");
+            ErrorMassage.setMassage("品項:"+Product.getProduct_name()+"，此編號商品庫存不足");
             ErrorMassage.setErrorTime(dtf);
             return ErrorMassage;
         }

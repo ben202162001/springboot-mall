@@ -37,6 +37,10 @@ public class ProductServiceImpl implements ProductService {
     public ProductDetail getProductDetail(ProductDetailDto ProductDetailDto) {
         return productDao.getProductDetail(ProductDetailDto);
     }
+    @Override
+    public Product getProduct(ProductDetailDto ProductDetailDto) {
+        return productDao.getProduct(ProductDetailDto);
+    }
 
     ;
 }

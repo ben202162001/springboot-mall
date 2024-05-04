@@ -68,9 +68,24 @@ public class ProductController {
         return ProductPage;
     }
     @GetMapping("/ProductDetail")
-    public ProductDetail AllProducts(ProductDetailDto ProductDetailDto) {
+    public ProductDetail ProductDetail(ProductDetailDto ProductDetailDto) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        System.out.println("ProductDetail呼叫開始:"+dtf.format(LocalDateTime.now()));
+        System.out.println("ProductId:"+ProductDetailDto.getProductId() );
         ProductDetail ProductDetail = productService.getProductDetail(ProductDetailDto);
+        System.out.println("ProductDetail呼叫完成:"+dtf.format(LocalDateTime.now()));
+        System.out.println(ProductDetail);
         return ProductDetail;
+    }
+    @GetMapping("/Product")
+    public Product Product(ProductDetailDto ProductDetailDto) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        System.out.println("Product呼叫開始:"+dtf.format(LocalDateTime.now()));
+        System.out.println("ProductId:"+ProductDetailDto.getProductId() );
+        Product Product = productService.getProduct(ProductDetailDto);
+        System.out.println("Product呼叫完成:"+dtf.format(LocalDateTime.now()));
+        System.out.println(Product);
+        return Product;
     }
 
 }
