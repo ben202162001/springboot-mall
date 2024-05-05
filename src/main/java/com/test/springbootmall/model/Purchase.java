@@ -20,6 +20,9 @@ public class Purchase {
         this.buy_date = buy_date;
         this.remark = remark;
     }
+    public Purchase() {
+        // 空的建構函式
+    }
 
     // Getters and Setters
     public String getphone_number() {
