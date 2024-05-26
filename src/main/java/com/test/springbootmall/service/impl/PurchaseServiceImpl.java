@@ -27,6 +27,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Transactional
     public ErrorMassage Purchase(Purchase purchase) {
         LocalTime dtf = LocalTime.now();
+        if (purchase.getQuantity()<1) {
+            ErrorMassage.setMassageStatus("fail");
+            ErrorMassage.setMassage("數量不可訂購小於1");
+            ErrorMassage.setErrorTime(dtf);
+            return ErrorMassage;
+        }
+
         //確認user
         if (purchase.getphone_number().equals("")||purchase.getphone_number().equals(null)) {
             ErrorMassage.setMassageStatus("fail");

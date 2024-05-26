@@ -7,7 +7,7 @@ import java.util.Date;
 public class Product {
     int product_id;
     String product_name;
-    String category;
+    CategoryEnum category;
     String image_url;
     int price ;
     int stock ;
@@ -31,11 +31,11 @@ public class Product {
         this.product_name = product_name;
     }
 
-    public String getCategory() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryEnum category) {
         this.category = category;
     }
 

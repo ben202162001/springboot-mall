@@ -4,7 +4,6 @@ import com.test.springbootmall.dao.UserDao;
 import com.test.springbootmall.dto.UserDto;
 import com.test.springbootmall.model.Purchase;
 import com.test.springbootmall.model.User;
-import com.test.springbootmall.rowmapper.ProductRowMapper;
 import com.test.springbootmall.rowmapper.PurchaseRowMapper;
 import com.test.springbootmall.rowmapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +87,7 @@ public class UserDaoImpl implements UserDao {
         String sql = "SELECT * FROM product_order WHERE 1=1";
 
         sql += " AND phone_number = '" + PhoneNumber + "'";
-
+        sql += " ORDER BY buy_date DESC";
         return jdbcTemplate.query(sql, new PurchaseRowMapper());
     }
 }

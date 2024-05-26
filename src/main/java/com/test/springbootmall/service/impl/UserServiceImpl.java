@@ -2,13 +2,11 @@ package com.test.springbootmall.service.impl;
 
 import com.test.springbootmall.dao.UserDao;
 import com.test.springbootmall.dto.UserDto;
-import com.test.springbootmall.model.Product;
 import com.test.springbootmall.model.Purchase;
 import com.test.springbootmall.model.User;
 import com.test.springbootmall.service.UserService;
 import com.test.springbootmall.util.ErrorMassage;
 import com.test.springbootmall.util.MyOrderPage;
-import com.test.springbootmall.util.ProductPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalTime;
