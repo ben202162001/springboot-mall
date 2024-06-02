@@ -1,13 +1,15 @@
 package com.test.springbootmall.controller;
 
+import com.test.springbootmall.model.Purchase;
 import com.test.springbootmall.util.ErrorMassage;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -21,7 +23,6 @@ public class TestHomeController {
                 "http://localhost:8080/getUserData?phone_Number=0912345678&password=password";
         return list;
     }
-
 
 
 //    【題目1】用Spring Boot 撰寫簡單的 RESTful API 服務，該服務能夠管理一個書籍資料庫。
@@ -50,100 +51,107 @@ public class TestHomeController {
 //            1.Client端，執行POST 請求 。輸出: {"處理結果":"新增成功"}。
 //    Request body參考
 //    {"ID":"888","書名":"TEST","出版日期":"2024-04-23"}。
-    public static class book {
-        String ID;
-        String bookname;
-        Date pub_date;
 
-        public String getID() {
-            return ID;
-        }
-
-        public void setID(String ID) {
-            this.ID = ID;
-        }
-
-        public String getBookname() {
-            return bookname;
-        }
-
-        public void setBookname(String bookname) {
-            this.bookname = bookname;
-        }
-
-        public Date getPub_date() {
-            return pub_date;
-        }
-
-        public void setPub_date(Date pub_date) {
-            this.pub_date = pub_date;
-        }
-    }
 
     @GetMapping("/books")
     public List<book> books() throws ParseException {
-        List<book> books = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        List<book> list_book = new ArrayList<>();
 
 
         book book1 = new book();
-        book1.setID("00A3");
-        book1.setBookname("黑心建商的告白");
-        Date date = dateFormat.parse("2022-10-31");
-        book1.setPub_date(date);
+        book1.setBook_id("00A3");
+        book1.setBook_name("黑心建商的告白");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        sdf1.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date1 = sdf1.parse("2022-10-31");
+        book1.setBook_date(date1);
+        list_book.add(book1);
 
         book book2 = new book();
-        book2.setID("FBA9");
-        book2.setBookname("Java 編程入門");
-        date = dateFormat.parse("2022-10-31");
-        book2.setPub_date(date);
-
+        book2.setBook_id("FBA9");
+        book2.setBook_name("Java 編程入門");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        sdf2.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date2 = sdf1.parse("2022-10-31");
+        book2.setBook_date(date2);
+        list_book.add(book2);
 
         book book3 = new book();
-        book3.setID("9786132156437");
-        book3.setBookname("Head First Java");
-        date = dateFormat.parse("2022-10-31 09:00:00");
-        book3.setPub_date(date);
+        book3.setBook_id("9786132156437");
+        book3.setBook_name("Head First Java, 3/e\"");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        sdf3.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date3 = sdf3.parse("2022-10-31T09:00:00Z");
+        book3.setBook_date(date3);
+        list_book.add(book3);
 
-        books.add(book1);
-        books.add(book2);
-        books.add(book3);
+        Collections.sort(list_book, new Comparator<book>() {
+            @Override
+            public int compare(book b1, book b2) {
+                return b1.getBook_id().compareTo(b2.getBook_id());
+            }
+        });
 
-        return books;
+
+        return list_book;
     }
+
     @PostMapping("/books")
     public ErrorMassage books(@RequestBody book book) {
-        book book1 = new book();
-        book1.setID(book.getID());
-        book1.setBookname(book.getBookname());
-        book1.setPub_date(book.getPub_date());
-
-
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         ErrorMassage ErrorMassage = new ErrorMassage();
         ErrorMassage.setMassage("新增成功");
-
         return ErrorMassage;
-
     }
 
-//    【題目2】字串處理
+    static class book {
+        String book_id;
+        String book_name;
+        Date book_date;
+
+        public String getBook_id() {
+            return book_id;
+        }
+
+        public void setBook_id(String book_id) {
+            this.book_id = book_id;
+        }
+
+        public String getBook_name() {
+            return book_name;
+        }
+
+        public void setBook_name(String book_name) {
+            this.book_name = book_name;
+        }
+
+        public Date getBook_date() {
+            return book_date;
+        }
+
+        public void setBook_date(Date book_date) {
+            this.book_date = book_date;
+        }
+    }
+
+    //    【題目2】字串處理
 //
 //● 題目敘述：寫一個可輸入的main方法，將輸入IP資訊反轉順序後輸出呈現。
 //
 //            ● 輸入/輸出結果範例：
 //    輸入:"127.0.0.1" --> 輸出:"1.0.0.127"
-public static void main(String[] args) {
-        String xxx = "127.0.0.1";
-
-        //用.分隔裝
-        String[] reverse = xxx.split("\\.");
-
-        //把LIST反轉
-        for (int i=0;i<reverse.length;i++){
-            System.out.print(reverse[reverse.length-1-i]);
-            if (i != reverse.length-1) {
-            System.out.print(".");}
+    public static void main(String arg[]) {
+        String xx = "127.0.0.1";
+        String[] show = xx.split("\\.");
+        for (int i = show.length - 1; 0 <= i; i--) {
+            System.out.print(show[i]);
+            if (i != 0) {
+                System.out.print(".");
+            }
 
         }
-}
+
+    }
+
+
 }
