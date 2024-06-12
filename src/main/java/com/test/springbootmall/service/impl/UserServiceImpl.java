@@ -4,9 +4,11 @@ import com.test.springbootmall.dao.UserDao;
 import com.test.springbootmall.dto.UserDto;
 import com.test.springbootmall.model.Purchase;
 import com.test.springbootmall.model.User;
+import com.test.springbootmall.model.UserForHibernate;
 import com.test.springbootmall.service.UserService;
 import com.test.springbootmall.util.ErrorMassage;
 import com.test.springbootmall.util.MyOrderPage;
+import com.test.springbootmall.util.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalTime;
@@ -79,6 +81,13 @@ public class UserServiceImpl implements UserService {
 
         return Purchase_record;
     }
+    @Autowired
+    private UserRepository userRepository;
 
-
+    @Override
+    public UserForHibernate getUserDataByHibernate(UserDto UserDto){
+        UserForHibernate UserForHibernate =new UserForHibernate();
+        UserForHibernate = userRepository.findByPhoneNumber(UserDto.getPhone_Number());
+        return UserForHibernate;
+    }
 }
