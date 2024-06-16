@@ -140,7 +140,7 @@ public class TestHomeController {
 //
 //            ● 輸入/輸出結果範例：
 //    輸入:"127.0.0.1" --> 輸出:"1.0.0.127"
-    public static void main(String arg[]) {
+    public static void main2(String arg[]) {
         String xx = "127.0.0.1";
         String[] show = xx.split("\\.");
         for (int i = show.length - 1; 0 <= i; i--) {
@@ -152,6 +152,79 @@ public class TestHomeController {
         }
 
     }
+    //最小公倍數
+    public static void main3(String arg[]) {
+        int z = 2;
+        int x = 3;
 
+        for (int i = z ; i<= z*x ;i++){
+            System.out.println(i);
+            if (i%z ==0 && i%x ==0){
+                System.out.println(i+"!!");
+            }
+        }
 
+    }
+    //最大公因數
+    public static void main4(String arg[]) {
+        int x = 100;
+        int y = 200;
+        int z = 300;
+        int max = 0;
+
+        for (int i = 1 ; i<= z ;i++){
+            if (x%i ==0 && y%i ==0 && z%i ==0){
+                max = i;
+            }
+        }
+        System.out.println(max);
+
+    }
+//    不死母蜂一年生一隻公蜂，每隻公蜂一年生一隻普通的母蜂和一個公蜂後就死掉，
+//    普通的母蜂一年生一隻公蜂後死掉。現在在一個只有一隻不死母蜂的實驗環境下，
+//    Input N年，Output 公蜂有幾隻、總共有幾隻蜜蜂
+    public static void main5(String arg[]) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("輸入幾年:");
+        int year = input.nextInt();
+        int man = 0 ;
+        int women = 0;
+        int man_pre = 0;
+        int women_pre =0;
+        for (int i = 1 ; i<= year ;i++){
+            man = man_pre +women_pre;
+            man = man+1;
+            women = man_pre ;
+
+            man_pre = man;
+            women_pre = women;
+        }
+        System.out.println("男峰:"+man);
+        System.out.println("女峰:"+women);
+    }
+    //輸入一串可重複的整數數列，求出重複最多次的整數以及重複次數。
+    public static void main(String arg[]) {
+        System.out.print("請輸入一串整數數列（用.分隔）：");
+        Scanner input = new Scanner(System.in);
+        String nums = input.nextLine();
+        String[] num_list = nums.split("\\.");
+        Map<Integer, Integer> countMap = new HashMap<>();
+        // 記錄每個數字出現的次數
+        for (int i = 0; i<num_list.length; i++) {
+            int num = Integer.parseInt(num_list[i]);
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+        }
+        int mostFrequentNumber = 0;
+        int maxCount = 0;
+
+        // 找出出現次數最多的數字
+        for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                mostFrequentNumber = entry.getKey();
+                maxCount = entry.getValue();
+            }
+        }
+        System.out.println("mostFrequentNumber:"+mostFrequentNumber);
+        System.out.println("maxCount:"+maxCount);
+    }
 }
