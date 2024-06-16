@@ -203,7 +203,7 @@ public class TestHomeController {
         System.out.println("女峰:"+women);
     }
     //輸入一串可重複的整數數列，求出重複最多次的整數以及重複次數。
-    public static void main(String arg[]) {
+    public static void main6(String arg[]) {
         System.out.print("請輸入一串整數數列（用.分隔）：");
         Scanner input = new Scanner(System.in);
         String nums = input.nextLine();
