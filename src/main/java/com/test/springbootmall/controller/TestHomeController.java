@@ -5,6 +5,7 @@ import com.test.springbootmall.util.ErrorMassage;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -152,19 +153,21 @@ public class TestHomeController {
         }
 
     }
+
     //最小公倍數
     public static void main3(String arg[]) {
         int z = 2;
         int x = 3;
 
-        for (int i = z ; i<= z*x ;i++){
+        for (int i = z; i <= z * x; i++) {
             System.out.println(i);
-            if (i%z ==0 && i%x ==0){
-                System.out.println(i+"!!");
+            if (i % z == 0 && i % x == 0) {
+                System.out.println(i + "!!");
             }
         }
 
     }
+
     //最大公因數
     public static void main4(String arg[]) {
         int x = 100;
@@ -172,36 +175,38 @@ public class TestHomeController {
         int z = 300;
         int max = 0;
 
-        for (int i = 1 ; i<= z ;i++){
-            if (x%i ==0 && y%i ==0 && z%i ==0){
+        for (int i = 1; i <= z; i++) {
+            if (x % i == 0 && y % i == 0 && z % i == 0) {
                 max = i;
             }
         }
         System.out.println(max);
 
     }
-//    不死母蜂一年生一隻公蜂，每隻公蜂一年生一隻普通的母蜂和一個公蜂後就死掉，
+
+    //    不死母蜂一年生一隻公蜂，每隻公蜂一年生一隻普通的母蜂和一個公蜂後就死掉，
 //    普通的母蜂一年生一隻公蜂後死掉。現在在一個只有一隻不死母蜂的實驗環境下，
 //    Input N年，Output 公蜂有幾隻、總共有幾隻蜜蜂
     public static void main5(String arg[]) {
         Scanner input = new Scanner(System.in);
         System.out.println("輸入幾年:");
         int year = input.nextInt();
-        int man = 0 ;
+        int man = 0;
         int women = 0;
         int man_pre = 0;
-        int women_pre =0;
-        for (int i = 1 ; i<= year ;i++){
-            man = man_pre +women_pre;
-            man = man+1;
-            women = man_pre ;
+        int women_pre = 0;
+        for (int i = 1; i <= year; i++) {
+            man = man_pre + women_pre;
+            man = man + 1;
+            women = man_pre;
 
             man_pre = man;
             women_pre = women;
         }
-        System.out.println("男峰:"+man);
-        System.out.println("女峰:"+women);
+        System.out.println("男峰:" + man);
+        System.out.println("女峰:" + women);
     }
+
     //輸入一串可重複的整數數列，求出重複最多次的整數以及重複次數。
     public static void main6(String arg[]) {
         System.out.print("請輸入一串整數數列（用.分隔）：");
@@ -210,7 +215,7 @@ public class TestHomeController {
         String[] num_list = nums.split("\\.");
         Map<Integer, Integer> countMap = new HashMap<>();
         // 記錄每個數字出現的次數
-        for (int i = 0; i<num_list.length; i++) {
+        for (int i = 0; i < num_list.length; i++) {
             int num = Integer.parseInt(num_list[i]);
             countMap.put(num, countMap.getOrDefault(num, 0) + 1);
         }
@@ -224,7 +229,123 @@ public class TestHomeController {
                 maxCount = entry.getValue();
             }
         }
-        System.out.println("mostFrequentNumber:"+mostFrequentNumber);
-        System.out.println("maxCount:"+maxCount);
+        System.out.println("mostFrequentNumber:" + mostFrequentNumber);
+        System.out.println("maxCount:" + maxCount);
     }
+
+    //    羅馬數字由七種不同的符號表示：I, V, X, L, C, D 和 M。
+//
+//    符號 數值
+//    I 1
+//    V 5
+//    X 10
+//    L 50
+//    C 100
+//    D 500
+//    M 1000
+//    輸入字串算出數字，例如III = 3、LVIII = 58
+    public static void main7(String[] args) {
+        int cnt = 0;
+        int now_num = 0;
+        int pre_num = 0;
+        Scanner input = new Scanner(System.in);
+        String s = input.nextLine();
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char c = s.charAt(i);
+            switch (c) {
+                case ('I'):
+                    now_num = 1;
+                    break;
+                case ('V'):
+                    now_num = 5;
+                    break;
+                case ('X'):
+                    now_num = 10;
+                    break;
+                case ('L'):
+                    now_num = 50;
+                    break;
+                case ('C'):
+                    now_num = 100;
+                    break;
+                case ('D'):
+                    now_num = 500;
+                    break;
+                case ('M'):
+                    now_num = 1000;
+                    break;
+            }
+
+            if (now_num < pre_num) {
+                cnt = cnt - now_num;
+            } else {
+                cnt = cnt + now_num;
+
+            }
+            pre_num = now_num;
+        }
+        System.out.println(cnt);
+    }
+
+    //編寫一個程序，從一個名為input.txt的文件中讀取內容，並將其逐行打印到控制台。同時，將每一行的內容反轉後寫入到一個名為output.txt的文件中。
+    public static void main(String[] arg) throws FileNotFoundException {
+        //String inputFileName = "D:\\input.txt";
+        //String outputFileName = "D:\\output.txt";
+        String inputFileName = "src/main/resources/input_infile.txt";
+        String outputFileName = "src/main/resources/output_infile.txt";
+        List<String> data = new ArrayList<String>();
+
+        //從一個名為input.txt的文件中讀取內容
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFileName))) {
+            String line;
+            line = br.readLine();
+            while ((line != null)) {
+                data.add(line);
+                line = br.readLine();
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //並將其逐行打印到控制台
+        System.out.println("資料");
+        for (String datas : data) {
+            System.out.println(datas);
+        }
+        System.out.println("");
+        System.out.println("從後面印到前面");
+        for (int i = data.size() - 1; 0 <= i; i--) {
+            System.out.println(data.get(i));
+        }
+        System.out.println("");
+        System.out.println("單行反轉");
+        for (int i = 0; i < data.size(); i++) {
+            String reversedLine = new StringBuilder(data.get(i)).reverse().toString();
+            System.out.println(reversedLine);
+        }
+        System.out.println("");
+        System.out.println("從後面印到前面+單行反轉");
+        for (int i = data.size() - 1; 0 <= i; i--) {
+            String reversedLine = new StringBuilder(data.get(i)).reverse().toString();
+            System.out.println(reversedLine);
+
+        }
+        //將每一行的內容反轉後寫入到一個名為output.txt的文件中
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFileName, true))) {
+            for (int i = 0; i < data.size(); i++) {
+                String reversedLine = new StringBuilder(data.get(i)).reverse().toString();
+                bw.write(reversedLine);
+                bw.newLine(); // 換行
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//編寫一個程序，讀取一個JSON文件data.json，並解析其內容。假設JSON文件包含一個學生信息的列表，將每個學生的信息打印到控制台。使用Gson庫來解析JSON。
+    public static void main9(String[] arg) {
+
+    }
+//編寫一個程序，創建兩個線程。第一個線程每秒打印一次"Hello"，第二個線程每秒打印一次"World"。讓這兩個線程同時運行，並且每個線程運行5次後結束。
+//編寫一個簡單的客戶端-服務器應用程序。服務器接收客戶端發來的消息並回覆相同的消息。客戶端連接到服務器並發送一條消息，然後接收服務器的回覆並打印出來。
 }
