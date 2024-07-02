@@ -1,11 +1,21 @@
 package com.test.springbootmall.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.test.springbootmall.model.Purchase;
+import com.test.springbootmall.model.User;
 import com.test.springbootmall.util.ErrorMassage;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.awt.print.Book;
 import java.io.*;
+import java.lang.reflect.Type;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -25,7 +35,7 @@ public class TestHomeController {
         return list;
     }
 
-
+//main1
 //    【題目1】用Spring Boot 撰寫簡單的 RESTful API 服務，該服務能夠管理一個書籍資料庫。
 //
 //            ● 題目描述：
@@ -135,6 +145,7 @@ public class TestHomeController {
         }
     }
 
+    //main2
     //    【題目2】字串處理
 //
 //● 題目敘述：寫一個可輸入的main方法，將輸入IP資訊反轉順序後輸出呈現。
@@ -154,6 +165,7 @@ public class TestHomeController {
 
     }
 
+    //main3
     //最小公倍數
     public static void main3(String arg[]) {
         int z = 2;
@@ -167,7 +179,7 @@ public class TestHomeController {
         }
 
     }
-
+    //main4
     //最大公因數
     public static void main4(String arg[]) {
         int x = 100;
@@ -184,6 +196,7 @@ public class TestHomeController {
 
     }
 
+    //main5
     //    不死母蜂一年生一隻公蜂，每隻公蜂一年生一隻普通的母蜂和一個公蜂後就死掉，
 //    普通的母蜂一年生一隻公蜂後死掉。現在在一個只有一隻不死母蜂的實驗環境下，
 //    Input N年，Output 公蜂有幾隻、總共有幾隻蜜蜂
@@ -206,7 +219,7 @@ public class TestHomeController {
         System.out.println("男峰:" + man);
         System.out.println("女峰:" + women);
     }
-
+    //main6
     //輸入一串可重複的整數數列，求出重複最多次的整數以及重複次數。
     public static void main6(String arg[]) {
         System.out.print("請輸入一串整數數列（用.分隔）：");
@@ -232,6 +245,8 @@ public class TestHomeController {
         System.out.println("mostFrequentNumber:" + mostFrequentNumber);
         System.out.println("maxCount:" + maxCount);
     }
+
+    //main7
 
     //    羅馬數字由七種不同的符號表示：I, V, X, L, C, D 和 M。
 //
@@ -287,8 +302,9 @@ public class TestHomeController {
         System.out.println(cnt);
     }
 
+    //main9
     //編寫一個程序，從一個名為input.txt的文件中讀取內容，並將其逐行打印到控制台。同時，將每一行的內容反轉後寫入到一個名為output.txt的文件中。
-    public static void main(String[] arg) throws FileNotFoundException {
+    public static void main9(String[] arg) throws FileNotFoundException {
         //String inputFileName = "D:\\input.txt";
         //String outputFileName = "D:\\output.txt";
         String inputFileName = "src/main/resources/input_infile.txt";
@@ -341,11 +357,165 @@ public class TestHomeController {
             e.printStackTrace();
         }
     }
+    //main10
+    //編寫一個程序，讀取一個JSON文件data.json，並解析其內容。假設JSON文件包含一個學生信息的列表，將每個學生的信息打印到控制台。使用Gson庫來解析JSON。
+    public static void main10(String[] arg) {
+        String inputFileName = "src/main/resources/input_user_json.txt";
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader(inputFileName)) {
+            Type UserListType = new TypeToken<List<User>>() {
+            }.getType();
+            List<User> Users = gson.fromJson(reader, UserListType);
+            System.out.println("資料：");
+            for (User student : Users) {
+                System.out.println(student);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //main11
+    //編寫一個程序，創建兩個線程。第一個線程每秒打印一次"Hello"，第二個線程每秒打印一次"World"。讓這兩個線程同時運行，並且每個線程運行5次後結束。
+    public static void main11(String[] arg) {
+        // 創建并啟動第一線程，每秒打印一次 "Hello"
+        Thread helloThread = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Hello");
+                try {
+                    Thread.sleep(2000); // 線程休眠2秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-//編寫一個程序，讀取一個JSON文件data.json，並解析其內容。假設JSON文件包含一個學生信息的列表，將每個學生的信息打印到控制台。使用Gson庫來解析JSON。
-    public static void main9(String[] arg) {
+        // 創建啟動第二个線程，每秒打印一次 "World"
+        Thread worldThread = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("World!");
+                try {
+                    Thread.sleep(1000); // 線程休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // 啟動兩個線程
+        helloThread.start();
+        worldThread.start();
+
+        // 等待兩個線程執行完畢
+        try {
+            helloThread.join();
+            worldThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // 所有線程執行完畢後输出结束語句
+        System.out.println("All threads have finished.");
+    }
+
+    //main12
+    //編寫一個簡單的客戶端-服務器應用程序。服務器接收客戶端發來的消息並回覆相同的消息。客戶端連接到服務器並發送一條消息，然後接收服務器的回覆並打印出來。
+
+    public static void main12_server(String[] arg) {//main12_server
+        //TestHomeController 的 main12 的主機端
+        int portNumber = 12345; // 服務器監聽的端口号
+
+        try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+            System.out.println("服務器啟動，監聽端口：" + portNumber);
+
+            // 等待客戶端連接
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("客户端已連接");
+
+            // 獲取输入流，用於接收客户端消息
+            BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            // 獲取输出流，用於向客户端發送消息
+            PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            // 讀取客户端發送的消息
+            String clientMessage = input.readLine();
+            System.out.println("客戶端消息：" + clientMessage);
+
+            // 發送相同的消息给客戶端
+            output.println("服務器收到消息：" + clientMessage);
+
+            // 關閉連接
+            clientSocket.close();
+            System.out.println("客户端已斷開連接");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
-//編寫一個程序，創建兩個線程。第一個線程每秒打印一次"Hello"，第二個線程每秒打印一次"World"。讓這兩個線程同時運行，並且每個線程運行5次後結束。
-//編寫一個簡單的客戶端-服務器應用程序。服務器接收客戶端發來的消息並回覆相同的消息。客戶端連接到服務器並發送一條消息，然後接收服務器的回覆並打印出來。
+
+    public static void main12_client(String[] arg) {//main12_client
+        //TestHomeController 的 main12 的客戶端
+        String serverAddress = "localhost"; // 服務器地址
+        int portNumber = 12345; // 服務器端口號
+
+        try (
+                // 創建與服務器的連接
+                Socket socket = new Socket(serverAddress, portNumber);
+                // 獲取输出流，向服務器發送消息
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                // 獲取输出流，接收服務器的響應消息
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                // 從控制台獲取输入
+                BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))
+        ) {
+            String userInput;
+
+            // 從控制台讀取輸入
+            System.out.print("请输入消息發送给服務器：");
+            userInput = stdIn.readLine();
+
+            // 發送消息给服務器
+            out.println(userInput);
+
+            // 接收服務器的響應消息并打印
+            System.out.println("服務器響應：" + in.readLine());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //main13
+    //實作一個簡單的加密和解密程式，使用常見的加密算法（如AES）來加密一段文字，並能夠將其解密回原始內容
+    public static void main13(String[] arg) throws Exception {
+        String originalText = "Hello, world! This is a secret message.";
+
+        // Generate AES key
+        SecretKey secretKey = KeyGenerator.getInstance("AES").generateKey();
+
+        // Encrypt the text
+        String encryptedText = main13_encrypt(originalText, secretKey);
+        System.out.println("加密: " + encryptedText);
+
+        // Decrypt the text
+        String decryptedText = main13_decrypt(encryptedText, secretKey);
+        System.out.println("解密: " + decryptedText);
+
+    }
+    public static String main13_encrypt(String plaintext, SecretKey secretKey) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] encryptedBytes = cipher.doFinal(plaintext.getBytes());
+        return Base64.getEncoder().encodeToString(encryptedBytes);
+    }
+
+    public static String main13_decrypt(String encryptedText, SecretKey secretKey) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] encryptedBytes = Base64.getDecoder().decode(encryptedText);
+        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+        return new String(decryptedBytes);
+    }
+
 }

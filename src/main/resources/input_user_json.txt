@@ -1,0 +1,12 @@
+[{userId:1,
+userName:username,
+password:password,
+phoneNumber:0912345678,
+createTime:2022-02-01,
+editTime:2022-02-01},
+{userId:2,
+userName:username2,
+password:password2,
+phoneNumber:0912345670,
+createTime:2024-07-01,
+editTime:2024-09-01}]
