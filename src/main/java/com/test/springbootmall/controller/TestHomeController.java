@@ -2,7 +2,6 @@ package com.test.springbootmall.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.test.springbootmall.model.Purchase;
 import com.test.springbootmall.model.User;
 import com.test.springbootmall.util.ErrorMassage;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.awt.print.Book;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -143,6 +139,15 @@ public class TestHomeController {
         public void setBook_date(Date book_date) {
             this.book_date = book_date;
         }
+
+        public book(String book_id, String book_name, Date book_date) {
+            this.book_id = book_id;
+            this.book_name = book_name;
+            this.book_date = book_date;
+        }
+
+        public book() {
+        }
     }
 
     //main2
@@ -179,6 +184,7 @@ public class TestHomeController {
         }
 
     }
+
     //main4
     //最大公因數
     public static void main4(String arg[]) {
@@ -219,6 +225,7 @@ public class TestHomeController {
         System.out.println("男峰:" + man);
         System.out.println("女峰:" + women);
     }
+
     //main6
     //輸入一串可重複的整數數列，求出重複最多次的整數以及重複次數。
     public static void main6(String arg[]) {
@@ -357,6 +364,7 @@ public class TestHomeController {
             e.printStackTrace();
         }
     }
+
     //main10
     //編寫一個程序，讀取一個JSON文件data.json，並解析其內容。假設JSON文件包含一個學生信息的列表，將每個學生的信息打印到控制台。使用Gson庫來解析JSON。
     public static void main10(String[] arg) {
@@ -374,6 +382,7 @@ public class TestHomeController {
             e.printStackTrace();
         }
     }
+
     //main11
     //編寫一個程序，創建兩個線程。第一個線程每秒打印一次"Hello"，第二個線程每秒打印一次"World"。讓這兩個線程同時運行，並且每個線程運行5次後結束。
     public static void main11(String[] arg) {
@@ -503,6 +512,7 @@ public class TestHomeController {
         System.out.println("解密: " + decryptedText);
 
     }
+
     public static String main13_encrypt(String plaintext, SecretKey secretKey) throws Exception {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -516,6 +526,191 @@ public class TestHomeController {
         byte[] encryptedBytes = Base64.getDecoder().decode(encryptedText);
         byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
         return new String(decryptedBytes);
+    }
+
+    //main14
+    //List
+    public static void main14(String[] args) {
+        List<String> list = new ArrayList<>();
+
+        // 添加元素
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Orange");
+        list.add("Banana");
+
+        // 獲取元素
+        String firstElement = list.get(0);
+        System.out.println("First element: " + firstElement);
+
+        // 迭代元素
+        for (String fruit : list) {
+            System.out.println(fruit);
+        }
+
+        // 刪除元素
+        list.remove("Banana");
+
+        // 迭代元素
+        System.out.println("After removal:");
+        for (String fruit : list) {
+            System.out.println(fruit);
+        }
+        list.remove(0);
+        System.out.println("After remove:");
+        for (String fruit : list) {
+            System.out.println(fruit);
+        }
+
+    }
+
+    //main15
+    //Map
+    public static void main15(String[] args) {
+        Map<String, Integer> map = new HashMap<>();
+
+        // 添加元素
+        map.put("Apple", 1);
+        map.put("Banana", 2);
+        map.put("Orange", 3);
+
+        // 獲取元素
+        int appleCount = map.get("Apple");
+        System.out.println("Apple count: " + appleCount);
+
+        // 迭代元素
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+        // 刪除元素
+        map.remove("Banana");
+
+        // 迭代元素
+        System.out.println("After removal:");
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+
+    }
+
+    //main16
+    //Set
+    public static void main16(String[] args) {
+        Set<String> set = new HashSet<>();
+
+        // 添加元素
+        set.add("Apple");
+        set.add("Banana");
+        set.add("Orange");
+        set.add("Apple");  // 重複元素，不會添加
+
+        // 迭代元素
+        for (String fruit : set) {
+            System.out.println(fruit);
+        }
+
+        // 刪除元素
+        set.remove("Banana");
+
+        // 迭代元素
+        System.out.println("After removal:");
+        for (String fruit : set) {
+            System.out.println(fruit);
+        }
+    }
+
+    //main17
+    //File I/O (文件操作)
+    public static void main17(String[] args) {
+        String filename = "example.txt";
+
+        // 寫入文件
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write("Hello, World!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 讀取文件
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<String>[] list = new ArrayList[5];
+        ArrayList<String> list1 = new ArrayList<>();
+    }
+
+    //main18
+    //陣列們
+    public static void main(String[] args) {
+        System.out.println("------ArrayList------");
+        //不用設置list大小
+        List<String> list = new ArrayList<>();
+        list.add("123");
+        list.add("456");
+        for (String ff : list) {
+            System.out.println(ff);
+        }
+
+        System.out.println("-----String[]-------");
+        //要設置list大小
+        String[] list2 = new String[5];
+        list2[2] = "1258";
+        for (String ff : list2) {
+            System.out.println(ff);
+        }
+
+        System.out.println("------HashMap------");
+        //對應陣列
+        Map<String, Integer> map = new HashMap<>();
+        map.put("appple", 20);
+        map.put("bbad", 90);
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
+        System.out.println("------HashSet------");
+        //陣列，但不重複
+        HashSet<String> set = new HashSet<>();
+        set.add("kkkkkkkkk");
+        for (String set1 : set) {
+            System.out.println(set1);
+        }
+        System.out.println("------物件陣列------");
+        //物件陣列
+        //第一本書
+        List<book> books = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        book book1 = new book();
+        book1.setBook_id("1");
+        book1.setBook_name("第一本書");
+        Date current = new Date(); //現在時間
+        book1.setBook_date(current);
+        books.add(book1);
+
+        //第二本書
+        try {
+            Date date = sdf.parse("2024-07-07"); //指定時間
+            books.add(new book("2", "第二本書", date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //印出來
+        for (book booklist : books) {
+            // 使用 DateTimeFormatter 格式化日期
+            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd  HH:mm:ss");
+            System.out.println(booklist.getBook_id() + " " + booklist.getBook_name() + " " + sdFormat.format(booklist.getBook_date()));
+        }
+
+
     }
 
 }
