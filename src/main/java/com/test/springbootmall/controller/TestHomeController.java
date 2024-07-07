@@ -685,9 +685,10 @@ public class TestHomeController {
         }
         System.out.println("------物件陣列------");
         //物件陣列
-        //第一本書
+
         List<book> books = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //第一本書
         book book1 = new book();
         book1.setBook_id("1");
         book1.setBook_name("第一本書");
